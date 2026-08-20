@@ -1,0 +1,39 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 192 192" width="192" height="192">
+  <defs>
+    <linearGradient id="bgGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#0a0b16"/>
+      <stop offset="100%" stop-color="#1e223d"/>
+    </linearGradient>
+    <linearGradient id="starGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" stop-color="#ffffff"/>
+      <stop offset="50%" stop-color="#e0e7ff"/>
+      <stop offset="100%" stop-color="#b4b9e4"/>
+    </linearGradient>
+    <filter id="glow" x="-20%" y="-20%" width="140%" height="140%">
+      <feGaussianBlur stdDeviation="6" result="blur"/>
+      <feMerge>
+        <feMergeNode in="blur"/>
+        <feMergeNode in="SourceGraphic"/>
+      </feMerge>
+    </filter>
+  </defs>
+  
+  <!-- Background with rounded corners -->
+  <rect width="192" height="192" rx="42" fill="url(#bgGrad)"/>
+  
+  <!-- Background tiny stars -->
+  <circle cx="48" cy="52" r="1.5" fill="#ffffff" opacity="0.6"/>
+  <circle cx="144" cy="40" r="2" fill="#b4b9e4" opacity="0.8"/>
+  <circle cx="36" cy="130" r="1.5" fill="#b4b9e4" opacity="0.5"/>
+  <circle cx="150" cy="148" r="1.5" fill="#ffffff" opacity="0.7"/>
+  <circle cx="96" cy="30" r="1" fill="#ffffff" opacity="0.4"/>
+  
+  <!-- Central Main 4-point Star with glow -->
+  <g filter="url(#glow)">
+    <path d="M 96,44 Q 96,96 148,96 Q 96,96 96,148 Q 96,96 44,96 Q 96,96 96,44 Z" fill="url(#starGrad)"/>
+    <circle cx="96" cy="96" r="5" fill="#ffffff"/>
+  </g>
+  
+  <!-- Secondary small star -->
+  <path d="M 132,68 Q 132,84 148,84 Q 132,84 132,100 Q 132,84 116,84 Q 132,84 132,68 Z" fill="#fbbf24" opacity="0.85"/>
+</svg>
