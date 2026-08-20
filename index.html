@@ -1,0 +1,184 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover, maximum-scale=1.0, user-scalable=no">
+  <meta name="theme-color" content="#0a0b16">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
+  <meta name="apple-mobile-web-app-title" content="星屑ポスト">
+  <title>星屑ポスト</title>
+  
+  <link rel="manifest" href="manifest.json">
+  <link rel="icon" type="image/svg+xml" href="icons/icon-192.svg">
+  <link rel="apple-touch-icon" href="icons/icon-192.png">
+  <link rel="stylesheet" href="css/style.css">
+</head>
+<body>
+  <div class="starfield"></div>
+
+  <!-- Toast Notification -->
+  <div class="toast-container">
+    <div id="toast" class="toast">
+      <span class="toast-icon">✦</span>
+      <span id="toast-message">星屑を夜空へ放ちました</span>
+    </div>
+  </div>
+
+  <!-- Main App Shell -->
+  <div class="app-container">
+    <header class="app-header">
+      <div class="brand">
+        <span class="brand-icon">✦</span>
+        <span>星屑ポスト</span>
+      </div>
+      <button id="btn-open-settings" class="btn-icon" title="設定" aria-label="設定">
+        <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="3"></circle>
+          <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1 0 2.83 2 2 0 0 1-2.83 0l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-2 2 2 2 0 0 1-2-2v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83 0 2 2 0 0 1 0-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1-2-2 2 2 0 0 1 2-2h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 0-2.83 2 2 0 0 1 2.83 0l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 2-2 2 2 0 0 1 2 2v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 0 2 2 0 0 1 0 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 2 2 2 2 0 0 1-2 2h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+        </svg>
+      </button>
+    </header>
+
+    <main class="post-card">
+      <!-- 1. やること (todo: 必須 150字) -->
+      <div class="field-section">
+        <div class="field-header">
+          <label class="field-label" for="stardust-todo">
+            やること <span class="field-required">必須</span>
+          </label>
+          <span id="char-counter-todo" class="char-counter"></span>
+        </div>
+        <textarea
+          id="stardust-todo"
+          class="stardust-todo-input"
+          placeholder="今浮かんだタスクや星屑をどうぞ……"
+          maxlength="150"
+          rows="2"
+          autofocus
+        ></textarea>
+      </div>
+
+      <!-- 2. プロジェクト & 担当AIちゃん セレクター -->
+      <div class="selectors-row">
+        <div class="field-section">
+          <div class="field-header">
+            <label class="field-label" for="select-project">プロジェクト</label>
+          </div>
+          <select id="select-project" class="stardust-select">
+            <option value="">未設定</option>
+          </select>
+        </div>
+
+        <div class="field-section">
+          <div class="field-header">
+            <label class="field-label" for="select-ai">担当AIちゃん</label>
+          </div>
+          <select id="select-ai" class="stardust-select">
+            <option value="">未設定</option>
+            <option value="なびさん">なびさん</option>
+            <option value="くろさん">くろさん</option>
+            <option value="ジェミさん">ジェミさん</option>
+            <option value="じょじょ">じょじょ</option>
+            <option value="カニ様">カニ様</option>
+            <option value="エビ様">エビ様</option>
+            <option value="かーくん">かーくん</option>
+            <option value="魚氏">魚氏</option>
+            <option value="その他">その他</option>
+          </select>
+        </div>
+      </div>
+
+      <!-- 3. メモ (memo: 任意 500字) -->
+      <div class="field-section memo-wrapper">
+        <div class="field-header">
+          <label class="field-label" for="stardust-memo">メモ</label>
+          <span id="char-counter-memo" class="char-counter"></span>
+        </div>
+        <textarea
+          id="stardust-memo"
+          class="stardust-memo-input"
+          placeholder="詳細や補足があればここに（任意）"
+          maxlength="500"
+          rows="3"
+        ></textarea>
+      </div>
+    </main>
+
+    <div class="actions-container">
+      <button id="btn-launch" class="btn-launch" disabled>
+        <span class="btn-icon">✦</span>
+        <span id="btn-launch-text">夜空へ放つ</span>
+        <span class="shortcut-hint">(Cmd+Enter)</span>
+      </button>
+
+      <div class="status-bar">
+        <div class="status-item">
+          <span id="status-dot" class="status-dot"></span>
+          <span id="status-network">オンライン</span>
+        </div>
+        <div class="status-item">
+          <span id="status-queue">未送信: 0件</span>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Initial Setup Modal (Secret Token & GAS URL) -->
+  <div id="modal-setup" class="modal-overlay">
+    <div class="modal-card">
+      <h2 class="modal-title">✦ はじめての星屑ポスト</h2>
+      <p class="modal-desc">夜空へ星屑を届けるため、共有シークレットを設定してください。（シークレットは端末内に安全に保存されます）</p>
+
+      <div class="form-group">
+        <label class="form-label" for="setup-gas-url">GAS Web App URL</label>
+        <input type="url" id="setup-gas-url" class="form-input" placeholder="https://script.google.com/macros/s/.../exec">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="setup-secret">共有シークレット</label>
+        <input type="password" id="setup-secret" class="form-input" placeholder="STARDUST_TOKEN を入力" autocomplete="current-password">
+        <div id="setup-error" class="form-error"></div>
+      </div>
+
+      <div class="modal-actions">
+        <button id="btn-setup-save" class="btn-primary">接続して始める</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Settings Modal -->
+  <div id="modal-settings" class="modal-overlay">
+    <div class="modal-card">
+      <h2 class="modal-title">⚙️ 設定</h2>
+      <p class="modal-desc">接続先やシークレットの確認・変更、プロジェクト一覧の再同期ができます。</p>
+
+      <div class="form-group">
+        <label class="form-label" for="settings-gas-url">GAS Web App URL</label>
+        <input type="url" id="settings-gas-url" class="form-input" placeholder="https://script.google.com/macros/s/.../exec">
+      </div>
+
+      <div class="form-group">
+        <label class="form-label" for="settings-secret">共有シークレット (変更する場合のみ入力)</label>
+        <input type="password" id="settings-secret" class="form-input" placeholder="新しいシークレットを入力">
+        <div id="settings-error" class="form-error"></div>
+      </div>
+
+      <div class="modal-actions" style="justify-content: space-between;">
+        <button id="btn-settings-clear" class="btn-danger">初期化</button>
+        <div style="display: flex; gap: 8px;">
+          <button id="btn-settings-close" class="btn-secondary">閉じる</button>
+          <button id="btn-settings-save" class="btn-primary">保存</button>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Scripts -->
+  <script src="js/ulid.js"></script>
+  <script src="js/db.js"></script>
+  <script src="js/api.js"></script>
+  <script src="js/sync.js"></script>
+  <script src="js/app.js"></script>
+</body>
+</html>
